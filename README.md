@@ -1,6 +1,13 @@
 # Rsgrep
 
-TODO: Write a gem description
+This is a pure Ruby implementation with the same goal as the small but amazing
+[sorted grep](http://sourceforge.net/projects/sgrep/) program written by
+Stephen C. Losen.
+
+It is designed for use on large, lexicographically sorted files. It allows you
+to search for lines that *begin* with a certain pattern (searching for anything
+at a position anywhere other than the start of a line isn't possible using a
+binary search).
 
 ## Installation
 
@@ -18,7 +25,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The gem monkey patches into the File class. It can be used in the following two
+ways:
+
+``` ruby
+puts File.sgrep("key pattern", "path/to/file.txt")
+#=> array of all lines that start with "key pattern", empty array for no
+#   matches.
+
+# or ...
+
+f = File.open("path/to/file.txt")
+puts f.sgrep("key pattern")
+#=> array of all lines that start with "key pattern", empty array for no
+#   matches.
+
+f.close
+```
 
 ## Contributing
 
