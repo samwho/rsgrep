@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require File.join(File.dirname(__FILE__), '..', 'lib', 'rsgrep')
+
+key  = ARGV.shift
+file = ARGV.shift
+
+begin
+  puts File.sgrep(key, file)
+rescue Errno::EPIPE
+  # If piping to another program, then that program closes STDOUT (by exiting
+  # for example), you get an EPIPE excetion. We don't really care about it. This
+  # is just to stop error output.
+end
