@@ -47,20 +47,24 @@ describe "File#sgrep" do
     it           { should be_empty }
   end
 
-  context "case insensitive searches" do
-    context "when searching for 'And'" do
-      key = 'And'
+  if DICT_FILE
+    let(:dict_file) { File.open(DICT_FILE) }
 
-      subject      { data_file1.sgrep key, :insensitive => true }
-      it           { should_not be_empty }
+    after :each do
+      dict_file.close
+    end
 
-      specify "it should have at least one lower case a match" do
-        subject.any? { |elem| elem.start_with? "a" }.should be_true
-      end
+    context "Dictionary data tests" do
+      context "case insensitive searches" do
+        context "search for 'zyzzogeton'" do
+          key = "zyzzogeton"
 
-      specify "it should have at least one upper case A match" do
-        subject.any? { |elem| elem.start_with? "A" }.should be_true
+          subject { dict_file.sgrep key, :insensitive => true }
+          it      { should include "Zyzzogeton" }
+        end
       end
     end
+  else
+    STDERR.puts "It doesn't seem like you have a dictionary file in a standard location. Skipping dictionary file tests."
   end
 end

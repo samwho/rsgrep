@@ -35,7 +35,6 @@ class File
     while lo < mid and mid < hi
       seek(mid)
       seek(-2, IO::SEEK_CUR) while (c = getc) != "\n" and c != nil
-      Kernel.puts "#{lo} #{mid} #{hi}"
 
       case comparator.call(key, (line = gets))
       when 0
@@ -54,7 +53,7 @@ class File
 
         # Then scan forward line by line until all of the lines that match have
         # been added to the return array.
-        ret << line while (line = gets) != nil and comparator.call(key, line) == 0
+        ret << line.rstrip while (line = gets) != nil and comparator.call(key, line) == 0
 
         # and we're done!
         return ret
