@@ -88,3 +88,10 @@ Direct link:
 
 It's about 440mb compressed, 3gb uncompressed. You will need to uncompress it
 into the `spec/data` directory in order to run the specs successfully.
+
+This file is a bit of a bad example though, to be honest. I'm only using it at
+the moment so that the specs give a good idea of how long it takes to scan
+through such a large file. The reason that this is not a good file to use is
+because it isn't sorted in a way the rsgrep knows how to process yet. Its
+handling of capital letters and punctuation are a bit confusing and I haven't
+yet been able to find a consistent and clean way of scanning it.
