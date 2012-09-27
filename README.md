@@ -59,6 +59,14 @@ f.sgrep("PaTTern", :insensitive => true)
 f.close
 ```
 
+**NOTE**: There are a lot of caveat involved in getting this to work properly.
+For example, you **cannot** do a case insensitive search on a file that is not
+sorted in a case insensitive fashion. The results will not be what you expect.
+
+This will be true of almost all options you pass to rsgrep. You will get the
+best results on a file that uses alphanumeric characters and only uses one
+casing (upper or lower, doesn't matter which).
+
 ## Contributing
 
 1. Fork it
