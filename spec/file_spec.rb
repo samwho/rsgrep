@@ -46,4 +46,21 @@ describe "File#sgrep" do
     subject      { data_file1.sgrep key }
     it           { should be_empty }
   end
+
+  context "case insensitive searches" do
+    context "when searching for 'And'" do
+      key = 'And'
+
+      subject      { data_file1.sgrep key, :insensitive => true }
+      it           { should_not be_empty }
+
+      specify "it should have at least one lower case a match" do
+        subject.any? { |elem| elem.start_with? "a" }.should be_true
+      end
+
+      specify "it should have at least one upper case A match" do
+        subject.any? { |elem| elem.start_with? "A" }.should be_true
+      end
+    end
+  end
 end

@@ -1,12 +1,21 @@
 #!/usr/bin/env ruby
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'rsgrep')
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.on('-i', '--insensitive', 'Case insensitive search.') do
+    options[:insensitive] = true
+  end
+end.parse!
 
 key  = ARGV.shift
 file = ARGV.shift
 
 begin
-  puts File.sgrep(key, file)
+  puts File.sgrep(key, file, options)
 rescue Errno::EPIPE
   # If piping to another program, then that program closes STDOUT (by exiting
   # for example), you get an EPIPE excetion. We don't really care about it. This

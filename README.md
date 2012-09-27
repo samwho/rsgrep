@@ -29,6 +29,8 @@ The gem monkey patches into the File class. It can be used in the following two
 ways:
 
 ``` ruby
+require 'rsgrep'
+
 puts File.sgrep("key pattern", "path/to/file.txt")
 #=> array of all lines that start with "key pattern", empty array for no
 #   matches.
@@ -39,6 +41,20 @@ f = File.open("path/to/file.txt")
 puts f.sgrep("key pattern")
 #=> array of all lines that start with "key pattern", empty array for no
 #   matches.
+
+f.close
+```
+
+You can pass both of these functions an options hash. Here are some examples of
+the options you can pass:
+
+``` ruby
+require 'rsgrep'
+
+f = File.open("path/to/file.txt")
+
+# Case insensitive search
+f.sgrep("PaTTern", :insensitive => true)
 
 f.close
 ```
